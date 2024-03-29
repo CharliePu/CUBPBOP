@@ -6,6 +6,7 @@
 #include "performance.h"
 #include "tool.h"
 #include "warp_func.h"
+#include "thread_divergence.h"
 #include <assert.h>
 
 using namespace llvm;
@@ -25,6 +26,8 @@ int main(int argc, char **argv) {
 
   // inline __device__ functions, and create auxiliary global variables
   init_block(program, fout);
+
+  check_thread_divergence(program);
 
   // insert sync before each vote, and replace the
   // original vote function to warp vote
